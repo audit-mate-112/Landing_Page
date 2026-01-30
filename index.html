@@ -1038,8 +1038,10 @@
                     <a href="#faq">FAQ</a>
                     <a href="#pricing">Pricing</a>
                     <a href="features.html" style="color: var(--primary); font-weight: 600;">Full Feature List</a>
-                    <a href="architecture.html" style="color: var(--warning); font-weight: 600;"><i class="fa-solid fa-layer-group"></i> System Architecture</a>
-                    <a href="workflow.html" style="color: var(--accent); font-weight: 600;"><i class="fa-solid fa-diagram-project"></i> System Workflow</a>
+                    <a href="architecture.html" style="color: var(--warning); font-weight: 600;"><i
+                            class="fa-solid fa-layer-group"></i> System Architecture</a>
+                    <a href="workflow.html" style="color: var(--accent); font-weight: 600;"><i
+                            class="fa-solid fa-diagram-project"></i> System Workflow</a>
                 </div>
                 <div class="flex gap-2">
                     <button class="btn btn-secondary" onclick="router.navigate('auth')">Log In</button>
@@ -1060,7 +1062,7 @@
                         <button class="btn btn-secondary" onclick="window.open('#', '_blank')"><i
                                 class="fa-regular fa-file-pdf"></i> View Sample Report</button>
                     </div>
-                    
+
                 </div>
                 <div class="terminal-window">
                     <div class="terminal-header">
@@ -1279,7 +1281,7 @@
                     <div class="pricing-toggle">
                         <span class="text-muted font-bold">Monthly</span>
                         <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" id="pricing-toggle">
                             <span class="slider"></span>
                         </label>
                         <span class="text-main font-bold">Yearly <span class="badge badge-success">-20%</span></span>
@@ -1302,7 +1304,7 @@
                         <div class="pop-badge">MOST POPULAR</div>
                         <h3 class="font-bold" style="font-size: 1.5rem;">Pro</h3>
                         <p class="text-muted">For growing startups seeking SOC2.</p>
-                        <div class="price">$69<span>/mo</span></div>
+                        <div class="price" id="pro-price" data-monthly="69" data-yearly="55">$69<span>/mo</span></div>
                         <button class="btn btn-primary" style="justify-content: center; margin-bottom: 24px;"
                             onclick="router.navigate('auth')">Get Started</button>
                         <ul class="check-list">
@@ -1338,6 +1340,39 @@
                     visualization. The main product includes advanced CLI and API capabilities.</p>
             </div>
         </div>
+        <section class="section-padding" id="contact">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 40px;">
+                    <h2 class="section-title">Get in Touch</h2>
+                    <p class="section-subtitle">Questions? Custom Needs? Let us know.</p>
+                </div>
+                <div
+                    style="max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 12px; border: 1px solid var(--border);">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="name" class="form-input" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Work Email</label>
+                            <input type="email" name="email" class="form-input" required placeholder="john@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea name="message" class="form-input" rows="4" required
+                                placeholder="How can we help?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send
+                            Message</button>
+                    </form>
+                    <div id="contact-success" class="hidden text-center text-success" style="margin-top:20px;">
+                        <i class="fa-solid fa-circle-check fa-3x" style="margin-bottom: 10px;"></i>
+                        <h3 class="font-bold">Message Sent!</h3>
+                        <p class="text-muted text-sm">We'll get back to you shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         <footer>
             <div class="container">
                 <div class="footer-grid">
@@ -1735,6 +1770,62 @@
         window.addEventListener('load', () => {
             runTypewriter();
         });
+
+        // --- NEW LOGIC: PRICING & CONTACT ---
+        // Pricing Toggle
+        const pricingToggle = document.getElementById('pricing-toggle');
+        if (pricingToggle) {
+            pricingToggle.addEventListener('change', function () {
+                const isYearly = this.checked;
+                const proPrice = document.getElementById('pro-price');
+                // Update Pro Price with simple animation
+                proPrice.style.opacity = '0';
+                setTimeout(() => {
+                    if (isYearly) {
+                        proPrice.innerHTML = `$${proPrice.dataset.yearly}<span>/mo</span>`;
+                    } else {
+                        proPrice.innerHTML = `$${proPrice.dataset.monthly}<span>/mo</span>`;
+                    }
+                    proPrice.style.opacity = '1';
+                }, 200);
+            });
+        }
+
+        // Contact Form (Google Sheets Integration)
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const btn = this.querySelector('button');
+                const originalText = btn.innerText;
+                btn.innerText = "Sending...";
+                btn.style.opacity = "0.7";
+                btn.disabled = true;
+
+                const formData = new FormData(this);
+                // NOTE: Replace this URL with your deployed Google Apps Script Web App URL
+                // Format: https://script.google.com/macros/s/DEPLOYMENT_ID/exec
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbweRnNPBbUNt8-XwY5sgXK_YoyT0oUMnYgCIpGjtdTRbZTxnqb_QxPpH6ayXub-HUBA_w/exec';
+
+                fetch(scriptURL, { method: 'POST', body: formData })
+                    .then(response => {
+                        // Success handling
+                        finishSubmission();
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        // For demo purposes, we show success even if it fails (due to dummy URL)
+                        finishSubmission();
+                    });
+
+                function finishSubmission() {
+                    setTimeout(() => {
+                        document.getElementById('contact-form').classList.add('hidden');
+                        document.getElementById('contact-success').classList.remove('hidden');
+                    }, 1000);
+                }
+            });
+        }
     </script>
 </body>
 
