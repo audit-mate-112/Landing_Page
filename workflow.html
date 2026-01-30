@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Workflow | AuditMate</title>
+    <title>How it Works | AuditMate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -13,7 +13,6 @@
             --bg-card: #0f172a;
             --primary: #3b82f6;
             --accent: #10b981;
-            --warning: #f59e0b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: rgba(255, 255, 255, 0.08);
@@ -27,8 +26,7 @@
             margin: 0;
         }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
-
+        .container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
         header { margin-bottom: 60px; text-align: center; }
         h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
         
@@ -43,7 +41,7 @@
             background: var(--border);
         }
 
-        .step { position: relative; margin-bottom: 60px; }
+        .step { position: relative; margin-bottom: 50px; }
         .step-icon {
             position: absolute;
             left: -40px;
@@ -62,33 +60,25 @@
         .step-content {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 30px;
+            padding: 24px;
             border-radius: 12px;
         }
 
-        h2 { font-size: 1.25rem; margin-top: 0; color: var(--primary); }
-        h3 { font-size: 1rem; color: var(--text-main); margin-top: 20px; }
+        h2 { font-size: 1.15rem; margin-top: 0; color: var(--text-main); font-weight: 700; }
+        p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0; }
 
-        .code-snippet {
-            background: #020617;
+        .business-logic {
+            background: rgba(59, 130, 246, 0.05);
             padding: 15px;
             border-radius: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #93c5fd;
+            font-size: 0.9rem;
+            color: var(--primary);
             margin: 15px 0;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .badge {
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            font-weight: 800;
-            margin-left: 10px;
-        }
-        .badge-async { background: rgba(16, 185, 129, 0.1); color: var(--accent); }
 
         .back-link {
             color: var(--text-muted);
@@ -97,99 +87,90 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 40px;
+            font-size: 0.9rem;
         }
 
-        .failure-box {
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            background: rgba(239, 68, 68, 0.05);
-            padding: 20px;
-            border-radius: 8px;
+        .summary-box {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 30px;
+            border-radius: 12px;
             margin-top: 40px;
+            border: 1px solid var(--border);
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
         
         <header>
-            <h1>Audit Lifecycle & Workflow</h1>
-            <p class="text-muted">A technical walkthrough of how AuditMate processes compliance evidence.</p>
+            <h1>How AuditMate Works</h1>
+            <p class="text-muted">Simple, automated compliance evidence in five steps.</p>
         </header>
 
         <div class="timeline">
             <div class="step">
-                <div class="step-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="step-icon"><i class="fa-solid fa-play"></i></div>
                 <div class="step-content">
-                    <h2>01. Trigger & Validation</h2>
-                    <p>When a scan is initiated, the API performs a three-tier validation check before spawning background processes.</p>
-                    <div class="code-snippet">
-                        POST /api/v1/audits/start/<br>
-                        > Auth Check: IsAuthenticated ✓<br>
-                        > Rate Limit: 5 audits/hr max ✓<br>
-                        > State Check: No active audits RUNNING ✓
-                    </div>
-                    <p class="text-muted text-sm">Result: 202 Accepted. New Audit UUID generated.</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-icon"><i class="fa-solid fa-gears"></i></div>
-                <div class="step-content">
-                    <h2>02. Background Execution <span class="badge badge-async">Asynchronous</span></h2>
-                    <p>The task is handed off to a Celery worker using Redis as the message broker. This ensures your dashboard stays fast while we do the heavy lifting.</p>
-                    <ul>
-                        <li>Fetches encrypted AWS/GitHub credentials from Vault.</li>
-                        <li>Decrypts tokens in-memory only.</li>
-                        <li>Queries external APIs for real-time configurations.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div class="step-content">
-                    <h2>03. Evidence Evaluation</h2>
-                    <p>Every resource is checked against the compliance ruleset. We handle exceptions through a Risk Acceptance logic.</p>
-                    <div class="code-snippet" style="color: #cbd5e1;">
-                        if check.status == 'FAIL':<br>
-                        &nbsp;&nbsp;if RiskAcceptance.exists(resource_id):<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;status = 'RISK_ACCEPTED' <span style="color: var(--accent);"># Override</span><br>
-                        &nbsp;&nbsp;else:<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;status = 'FAIL'
+                    <h2>01. Instant Launch</h2>
+                    <p>With one click, AuditMate starts a fresh scan of your security settings. No manual data entry or long questionnaires required.</p>
+                    <div class="business-logic">
+                        <i class="fa-solid fa-circle-check"></i> 
+                        System checks your permissions and readies the report engine.
                     </div>
                 </div>
             </div>
 
             <div class="step">
-                <div class="step-icon"><i class="fa-solid fa-file-shield"></i></div>
+                <div class="step-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
                 <div class="step-content">
-                    <h2>04. Snapshot & Integrity</h2>
-                    <p>Once completion is reached, a point-in-time snapshot is frozen. This data is now immutable.</p>
-                    <ul>
-                        <li><strong>SHA-256 Checksum:</strong> Generated for the entire audit result to prove no tampering.</li>
-                        <li><strong>Score Calculation:</strong> (Pass + Risk Accepted) / Total Checks.</li>
-                    </ul>
+                    <h2>02. Automatic Data Gathering</h2>
+                    <p>Our engine connects securely to your tools (like AWS or GitHub) to gather current security settings. This runs in the background so you can keep working.</p>
+                    <div class="business-logic">
+                        <i class="fa-solid fa-lock"></i> 
+                        Uses "Read-Only" access to keep your data 100% safe.
+                    </div>
                 </div>
             </div>
 
             <div class="step">
-                <div class="step-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                <div class="step-icon"><i class="fa-solid fa-shield-check"></i></div>
                 <div class="step-content">
-                    <h2>05. Redacted Export</h2>
-                    <p>When sharing reports with external auditors, AuditMate applies a Redaction Layer.</p>
-                    <p class="text-muted">Sensitive data like Internal IP addresses, DB secrets, and private repo names are replaced with generic placeholders while maintaining the <strong>PASS/FAIL</strong> integrity.</p>
+                    <h2>03. Intelligent Comparison</h2>
+                    <p>We compare your settings against industry standards (like SOC2). If a setting is "Failed" but you have a good reason, you can approve it as a "Known Risk."</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon"><i class="fa-solid fa-stamp"></i></div>
+                <div class="step-content">
+                    <h2>04. Digital "Freeze" & Proof</h2>
+                    <p>Once finished, we take a permanent digital snapshot. This creates an unchangeable record of your security at that exact moment—perfect for auditors.</p>
+                    <div class="business-logic">
+                        <i class="fa-solid fa-fingerprint"></i> 
+                        Generates a unique "Digital Fingerprint" to prove the report is authentic.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon"><i class="fa-solid fa-file-export"></i></div>
+                <div class="step-content">
+                    <h2>05. Auditor-Ready Reports</h2>
+                    <p>Download a clean, professional PDF or share a secure link. We automatically hide sensitive details (like passwords or private IDs) while showing your compliance success.</p>
                 </div>
             </div>
         </div>
 
-        <div class="failure-box">
-            <h3 style="margin-top: 0; color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Failure Modes & Recovery</h3>
-            <p class="text-sm text-muted">We use exponential backoff for API 429 errors. If a worker crashes, a cleanup cron job identifies the stale "RUNNING" audit and marks it as FAILED within 60 minutes to maintain system accuracy.</p>
+        <div class="summary-box">
+            <h3 style="margin-top: 0; color: white;">Compliance without the headache.</h3>
+            <p style="margin-bottom: 20px;">AuditMate turns weeks of manual work into a 5-minute automated process.</p>
+            <a href="index.html#view-auth" style="background: var(--primary); color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block;">Start Your First Scan</a>
         </div>
 
-        <footer style="text-align: center; margin-top: 60px; color: var(--text-muted); font-size: 0.8rem;">
-            &copy; 2026 AuditMate Workflow Engine v1.0
+        <footer style="text-align: center; margin-top: 60px; color: var(--text-muted); font-size: 0.8rem; padding-bottom: 40px;">
+            &copy; 2026 AuditMate Inc. Standard Compliance Workflow.
         </footer>
     </div>
 </body>
