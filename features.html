@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features | AuditMate Compliance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --bg-card: #0f172a;
+            --primary: #3b82f6;
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .back-link:hover { color: var(--primary); }
+
+        header { margin-bottom: 60px; }
+
+        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.2s;
+        }
+
+        .feature-category:hover { transform: translateY(-4px); }
+
+        .category-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        h2 { font-size: 1.25rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        ul { list-style: none; padding: 0; }
+
+        li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .badge-pro {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        </nav>
+
+        <header>
+            <h1>Platform Capabilities</h1>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 700px;">
+                A comprehensive breakdown of the AuditMate engine, from automated evidence collection to executive reporting.
+            </p>
+        </header>
+
+        <div class="grid">
+            <section class="feature-category">
+                <div class="category-icon"><i class="fa-solid fa-lock"></i></div>
+                <h2>Authentication</h2>
+                <ul>
+                    <li>JWT-based Stateless Auth</li>
+                    <li>Secure Refresh Token Rotation</li>
+                    <li>Context-Aware User Profiles</li>
+                    <li>SSO Ready (SAML/OIDC Support)</li>
+                </ul>
+            </section>
+
+            <section class="feature-category">
+                <div class="category-icon"><i class="fa-solid fa-users-gears"></i></div>
+                <h2>Multi-Tenancy</h2>
+                <ul>
+                    <li>Strict Logical Tenant Isolation</li>
+                    <li>Role-Based Access Control (RBAC)</li>
+                    <li>32-byte Hex Invite Tokens</li>
+                    <li>Organization Hierarchy Management</li>
+                </ul>
+            </section>
+
+            <section class="feature-category">
+                <div class="category-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h2>Audit Engine</h2>
+                <ul>
+                    <li>Asynchronous Celery Task Execution</li>
+                    <li>Immutable Evidence Snapshots</li>
+                    <li>Risk Acceptance Workflow <span class="badge-pro">Pro</span></li>
+                    <li>SHA-256 Content Hashing</li>
+                    <li>Automated Rate Limiting</li>
+                </ul>
+            </section>
+
+            <section class="feature-category">
+                <div class="category-icon"><i class="fa-solid fa-credit-card"></i></div>
+                <h2>Billing & Plans</h2>
+                <ul>
+                    <li>Stripe Checkout Integration</li>
+                    <li>Real-time Webhook Synchronization</li>
+                    <li>Feature Gating Architecture</li>
+                    <li>Automated Subscription Dunning</li>
+                </ul>
+            </section>
+
+            <section class="feature-category">
+                <div class="category-icon"><i class="fa-solid fa-file-contract"></i></div>
+                <h2>Reporting</h2>
+                <ul>
+                    <li>Board-Ready PDF Generation <span class="badge-pro">Pro</span></li>
+                    <li>Excel Engineering Deep-Dives <span class="badge-pro">Pro</span></li>
+                    <li>Weighted Letter Grade Analysis</li>
+                    <li>Public Secure Sharing Links</li>
+                    <li>Automated Redaction for Auditors</li>
+                </ul>
+            </section>
+
+            <section class="feature-category">
+                <div class="category-icon"><i class="fa-solid fa-plug"></i></div>
+                <h2>Integrations</h2>
+                <ul>
+                    <li>Fernet (AES-128) Credential Encryption</li>
+                    <li>AWS Infrastructure Scanning</li>
+                    <li>GitHub Repo Configuration Audits</li>
+                    <li>On-the-fly In-memory Decryption</li>
+                </ul>
+            </section>
+        </div>
+
+        <footer style="margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            &copy; 2026 AuditMate Inc. Build v1.4.2-stable
+        </footer>
+    </div>
+</body>
+</html>
