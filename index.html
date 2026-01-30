@@ -124,16 +124,57 @@
             gap: 1rem;
         }
 
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
         .text-center {
             text-align: center;
         }
 
-        .text-sm {
-            font-size: 0.875rem;
+        .text-xl {
+            font-size: 1.25rem;
         }
 
-        .text-xs {
-            font-size: 0.75rem;
+        .text-2xl {
+            font-size: 1.5rem;
         }
 
         .font-bold {
@@ -1156,40 +1197,178 @@
             opacity: 0.5;
         }
 
+        /* Browser Window Demo */
+        .browser-window {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            aspect-ratio: 16/10;
+        }
+
+        .browser-header {
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .browser-address {
+            background: var(--bg-dark);
+            border-radius: 6px;
+            height: 24px;
+            flex: 1;
+            margin-left: 12px;
+            opacity: 0.5;
+        }
+
+        .demo-dashboard {
+            padding: 20px;
+            flex: 1;
+            overflow: hidden;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        /* Scale down contents for hero */
+        .demo-hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .demo-stat-card {
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .demo-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .demo-stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .demo-chart-container {
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            min-height: 0;
+            /* Flexbox trick */
+        }
+
         @media (max-width: 768px) {
             .section-padding {
-                padding: 80px 0;
+                padding: 80px 0 !important;
+            }
+
+            .hero {
+                padding: 140px 0 60px !important;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.5rem !important;
             }
 
+            /* Grids Stacking */
+            .hero-grid,
             .steps-grid,
-            .roi-grid {
-                grid-template-columns: 1fr;
+            .roi-grid,
+            .faq-grid,
+            .footer-grid,
+            .feature-row,
+            .use-case-grid,
+            .philosophy-items {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+                text-align: center !important;
+                /* Optional: Center text on mobile */
+            }
+
+            /* Specific Adjustments */
+            .feature-row.reverse {
+                direction: ltr !important;
+            }
+
+            /* Un-reverse on mobile */
+            .feature-text {
+                text-align: left !important;
+            }
+
+            .philosophy-items {
+                gap: 40px !important;
+            }
+
+            .logos-grid {
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+
+            /* FAQ Alignment */
+            .faq-question {
+                align-items: flex-start !important;
+                text-align: left !important;
+            }
+
+            .faq-answer {
+                text-align: left !important;
             }
 
             /* Pricing Mobile */
             .pricing-toggle {
-                flex-direction: row;
-                gap: 10px;
-                transform: scale(0.9);
+                flex-direction: row !important;
+                gap: 10px !important;
+                transform: scale(0.9) !important;
             }
 
             .pricing-card {
-                padding: 24px;
+                padding: 24px !important;
+                min-width: 100% !important;
             }
 
             .price {
-                font-size: 2.5rem;
+                font-size: 2.5rem !important;
             }
 
             /* Table Scroll */
             .comparison-table {
-                min-width: 600px;
+                min-width: 600px !important;
                 /* Force scroll */
             }
+
+            /* Nav */
+            .nav-links {
+                display: none !important;
+            }
+
+            /* Hide nav links on mobile */
         }
     </style>
 </head>
@@ -1233,13 +1412,59 @@
                     </div>
 
                 </div>
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <div class="dot" style="background:#ef4444"></div>
-                        <div class="dot" style="background:#f59e0b"></div>
-                        <div class="dot" style="background:#10b981"></div>
+                <div class="browser-window">
+                    <div class="browser-header">
+                        <div class="browser-dot" style="background:#ef4444"></div>
+                        <div class="browser-dot" style="background:#f59e0b"></div>
+                        <div class="browser-dot" style="background:#10b981"></div>
+                        <div class="browser-address"></div>
                     </div>
-                    <div class="terminal-body" id="landing-terminal">
+                    <div class="demo-dashboard">
+                        <!-- Header -->
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <h3 class="font-bold text-white text-sm">Security Overview</h3>
+                                <p class="text-xs text-muted">Demo Inc. Production</p>
+                            </div>
+                            <div class="badge badge-success text-xs">92% Passing</div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="demo-hero-stats">
+                            <div class="demo-stat-card">
+                                <div class="demo-stat-label">Total Audits</div>
+                                <div class="demo-stat-value text-primary">12</div>
+                            </div>
+                            <div class="demo-stat-card">
+                                <div class="demo-stat-label">Pass Rate</div>
+                                <div class="demo-stat-value text-success">92.5%</div>
+                            </div>
+                            <div class="demo-stat-card">
+                                <div class="demo-stat-label">Critical Issues</div>
+                                <div class="demo-stat-value text-danger">3</div>
+                            </div>
+                            <div class="demo-stat-card">
+                                <div class="demo-stat-label">Resources</div>
+                                <div class="demo-stat-value" style="color:#a855f7">1,240</div>
+                            </div>
+                        </div>
+
+                        <!-- Chart Area -->
+                        <div class="demo-chart-container" id="demo-hero-chart">
+                            <!-- JS will inject bars here, but let's pre-populate for no-js/static render stability -->
+                            <div class="chart-bar" style="height: 40%"></div>
+                            <div class="chart-bar" style="height: 60%"></div>
+                            <div class="chart-bar" style="height: 45%"></div>
+                            <div class="chart-bar" style="height: 70%"></div>
+                            <div class="chart-bar" style="height: 55%"></div>
+                            <div class="chart-bar" style="height: 80%"></div>
+                            <div class="chart-bar" style="height: 65%"></div>
+                            <div class="chart-bar" style="height: 90%"></div>
+                            <div class="chart-bar" style="height: 75%"></div>
+                            <div class="chart-bar" style="height: 95%"></div>
+                            <div class="chart-bar" style="height: 85%"></div>
+                            <div class="chart-bar" style="height: 100%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1494,7 +1719,8 @@
                             which usually means endpoint agents, nonstop alerts, and pretending you hired a full‑time
                             CISO. We optimize for <strong>speed and snapshotting</strong>. Use them if you want a
                             <em>CISO‑in‑a‑box</em>. Use AuditMate if you just need clean, defensible evidence to pass an
-                            audit.</div>
+                            audit.
+                        </div>
                     </div>
                     <div class="faq-card">
                         <div class="faq-question">
@@ -1504,7 +1730,8 @@
                         <div class="faq-answer"><strong>Absolutely not.</strong> We hate endpoint agents. They’re
                             invasive, brittle, and everyone secretly disables them anyway. AuditMate connects via
                             <strong>read‑only APIs</strong> to check configuration and access controls, not your
-                            employees’ browser history.</div>
+                            employees’ browser history.
+                        </div>
                     </div>
                     <div class="faq-card">
                         <div class="faq-question">
@@ -1543,7 +1770,8 @@
                         <div class="faq-answer">You can do better. Use <strong>Secure Courier</strong> to generate a
                             <strong>time‑limited, read‑only link</strong>. Auditors see <em>exactly</em> what they need
                             to verify compliance — nothing more, nothing less. No shared logins. No awkward Zoom
-                            screen‑sharing.</div>
+                            screen‑sharing.
+                        </div>
                     </div>
                 </div>
 
@@ -1813,32 +2041,31 @@
                 <i class="fa-solid fa-shield-halved text-primary"></i> AuditMate
             </div>
             <div class="sidebar-menu">
-                <div class="menu-label">Platform</div>
+                <div class="menu-label">Menu</div>
                 <a class="menu-item active" onclick="router.switchTab('dash-home', this)">
                     <i class="fa-solid fa-grid-2"></i> Dashboard
                 </a>
                 <a class="menu-item" onclick="router.switchTab('dash-audits', this)">
-                    <i class="fa-solid fa-list-check"></i> Audit Logs
+                    <i class="fa-solid fa-shield-halved"></i> Audits
                 </a>
-                <a class="menu-item" onclick="router.switchTab('dash-evidence', this)">
-                    <i class="fa-solid fa-camera"></i> Evidence
-                </a>
-                <div class="menu-label" style="margin-top: 20px;">Configuration</div>
                 <a class="menu-item" onclick="router.switchTab('dash-settings', this)">
                     <i class="fa-solid fa-plug"></i> Integrations
                 </a>
-                <a class="menu-item" onclick="router.switchTab('dash-settings', this)">
-                    <i class="fa-solid fa-users"></i> Team
+                <a class="menu-item" onclick="router.switchTab('dash-org', this)">
+                    <i class="fa-regular fa-building"></i> Organization
                 </a>
-                <a class="menu-item" onclick="router.switchTab('dash-settings', this)">
-                    <i class="fa-solid fa-credit-card"></i> Billing
+                <a class="menu-item" onclick="router.switchTab('dash-billing', this)">
+                    <i class="fa-regular fa-credit-card"></i> Billing
+                </a>
+                <a class="menu-item" onclick="router.switchTab('dash-profile', this)">
+                    <i class="fa-regular fa-user"></i> Profile
                 </a>
             </div>
             <div class="user-profile">
                 <div class="avatar">JD</div>
                 <div style="flex: 1;">
                     <div class="text-sm font-bold">John Doe</div>
-                    <div class="text-xs text-muted">Admin • Pro Plan</div>
+                    <div class="text-xs text-muted">john@example.com</div>
                 </div>
                 <button onclick="router.navigate('landing')" class="text-muted"><i
                         class="fa-solid fa-right-from-bracket"></i></button>
@@ -1864,24 +2091,24 @@
                 </div>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-label">Overall Score</div>
-                        <div class="stat-value text-success">92%</div>
-                        <div class="stat-delta text-success"><i class="fa-solid fa-arrow-up"></i> 4% vs last week</div>
+                        <div class="stat-label">Total Audits</div>
+                        <div class="stat-value text-primary">12</div>
+                        <div class="stat-delta text-muted">8 completed</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Passing Checks</div>
-                        <div class="stat-value">142</div>
-                        <div class="stat-delta text-muted">Out of 154 total</div>
+                        <div class="stat-label">Pass Rate</div>
+                        <div class="stat-value text-success">92.5%</div>
+                        <div class="stat-delta text-success">Overall compliance</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Critical Issues</div>
                         <div class="stat-value text-danger">3</div>
-                        <div class="stat-delta text-danger">Action Required</div>
+                        <div class="stat-delta text-danger">Requires attention</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Next Audit</div>
-                        <div class="stat-value" style="font-size: 1.5rem;">Oct 24</div>
-                        <div class="stat-delta text-primary">Automated Schedule</div>
+                        <div class="stat-label">Resources Checked</div>
+                        <div class="stat-value" style="color:#a855f7">1,240</div>
+                        <div class="stat-delta text-muted">In last 30 days</div>
                     </div>
                 </div>
                 <div class="data-table-container">
@@ -1895,20 +2122,20 @@
                 </div>
                 <div class="data-table-container">
                     <div class="table-header">
-                        <h3 class="font-bold">Recent Failed Checks</h3>
+                        <h3 class="font-bold">Recent Audits</h3>
                         <button class="btn btn-secondary text-xs">View All</button>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Severity</th>
-                                <th>Check Name</th>
-                                <th>Resource</th>
-                                <th>Time</th>
-                                <th>Action</th>
+                                <th>Audit ID</th>
+                                <th>Date</th>
+                                <th>Pass Rate</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="failed-checks-body">
+                            <!-- Populated by JS, but updating structure here for clarity -->
                         </tbody>
                     </table>
                 </div>
@@ -1933,41 +2160,290 @@
                     </table>
                 </div>
             </div>
-            <div id="dash-settings" class="dash-tab hidden">
+
+            <div id="dash-audit-detail" class="dash-tab hidden">
                 <div class="page-header">
-                    <h2 class="page-title">Integrations</h2>
+                    <div class="flex items-center gap-4">
+                        <button class="btn btn-secondary"
+                            onclick="router.switchTab('dash-home', document.querySelector('.menu-item.active'))"><i
+                                class="fa-solid fa-arrow-left"></i></button>
+                        <div>
+                            <h2 class="page-title" id="audit-detail-title">Audit #AUD-8f3e2a1</h2>
+                            <p class="text-muted">Completed on Oct 24, 10:30 AM</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download Report</button>
+                    </div>
                 </div>
-                <div class="settings-card">
-                    <div class="flex items-center justify-between" style="margin-bottom: 20px;">
-                        <div class="flex items-center gap-4">
-                            <i class="fa-brands fa-github fa-2x"></i>
-                            <div>
-                                <h3 class="font-bold">GitHub Connection</h3>
-                                <p class="text-muted text-sm">Used for repository scanning.</p>
-                            </div>
-                        </div>
-                        <span class="badge badge-success">Connected</span>
+                <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="stat-card">
+                        <div class="stat-label">Pass Rate</div>
+                        <div class="stat-value text-success">92.5%</div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Personal Access Token (Encrypted)</label>
-                        <div class="input-group">
-                            <input type="password" value="ghp_XXXXXXXXXXXXXXXXXXXXXXXX" disabled class="form-input">
-                            <button class="btn btn-secondary">Rotate</button>
+                    <div class="stat-card">
+                        <div class="stat-label">Controls Passed</div>
+                        <div class="stat-value">142</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Critical Failures</div>
+                        <div class="stat-value text-danger">3</div>
+                    </div>
+                </div>
+                <div class="data-table-container">
+                    <div class="table-header">
+                        <h3 class="font-bold">Evidence & Controls</h3>
+                        <div class="flex gap-2">
+                            <span class="badge badge-danger">3 Failed</span>
+                            <span class="badge badge-success">142 Passed</span>
                         </div>
                     </div>
-                    <hr style="border-color: var(--border); margin: 24px 0;">
-                    <div class="flex items-center justify-between" style="margin-bottom: 20px;">
-                        <div class="flex items-center gap-4">
-                            <i class="fa-brands fa-aws fa-2x"></i>
-                            <div>
-                                <h3 class="font-bold">AWS Cloud</h3>
-                                <p class="text-muted text-sm">Infrastructure scanning.</p>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary">Connect</button>
-                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Control ID</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Evidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-muted">AWS.S3.1</td>
+                                <td class="font-bold">S3 Bucket Public Access</td>
+                                <td><span class="badge badge-danger">FAILED</span></td>
+                                <td class="text-xs font-mono">prod-assets-bucket</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">AWS.IAM.4</td>
+                                <td class="font-bold">Root Account MFA Missing</td>
+                                <td><span class="badge badge-danger">FAILED</span></td>
+                                <td class="text-xs font-mono">AWS Account 123</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">AWS.RDS.2</td>
+                                <td class="font-bold">RDS Encryption Disabled</td>
+                                <td><span class="badge badge-danger">FAILED</span></td>
+                                <td class="text-xs font-mono">db-staging-01</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">AWS.EC2.1</td>
+                                <td class="font-bold">Security Group Wide Open</td>
+                                <td><span class="badge badge-success">PASS</span></td>
+                                <td class="text-xs text-muted">No issues found</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">GH.BR.1</td>
+                                <td class="font-bold">Branch Protection On</td>
+                                <td><span class="badge badge-success">PASS</span></td>
+                                <td class="text-xs text-muted">Verified for main</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
+            <div id="dash-org" class="dash-tab hidden">
+                <div class="page-header">
+                    <h2 class="page-title">Organization Settings</h2>
+                </div>
+                <div class="settings-card">
+                    <div class="form-group">
+                        <label class="form-label">Organization Name</label>
+                        <input type="text" value="Demo Inc." class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Slug</label>
+                        <input type="text" value="demo-inc" disabled class="form-input text-muted">
+                    </div>
+                    <hr style="border-color: var(--border); margin: 24px 0;">
+
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold">Team Members</h3>
+                        <button class="btn btn-secondary text-xs"><i class="fa-solid fa-plus"></i> Invite</button>
+                    </div>
+
+                    <div class="data-table-container">
+                        <table style="margin-top:0">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div class="avatar" style="width:32px;height:32px;font-size:12px;">JD</div>
+                                            <div>
+                                                <div class="font-bold text-sm">John Doe</div>
+                                                <div class="text-xs text-muted">john@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-secondary">Admin</span></td>
+                                    <td><span class="text-xs text-muted">Active</span></td>
+                                    <td><button class="text-muted hover:text-white"><i
+                                                class="fa-solid fa-ellipsis"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div class="avatar"
+                                                style="width:32px;height:32px;font-size:12px;background:#a5b4fc;color:#4338ca">
+                                                AS</div>
+                                            <div>
+                                                <div class="font-bold text-sm">Alice Smith</div>
+                                                <div class="text-xs text-muted">alice@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-secondary">Viewer</span></td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td><button class="text-muted hover:text-white"><i
+                                                class="fa-solid fa-paper-plane"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="dash-billing" class="dash-tab hidden">
+                        <div class="page-header">
+                            <h2 class="page-title">Billing & Plans</h2>
+                        </div>
+                        <div class="flex gap-6" style="flex-wrap: wrap;">
+                            <div class="settings-card" style="flex:1; min-width: 300px;">
+                                <span class="badge badge-success mb-2">Active Plan</span>
+                                <h3 class="font-bold text-xl mb-1">Pro Plan</h3>
+                                <div class="text-2xl font-bold mb-4">$69<span
+                                        class="text-sm text-muted font-normal">/mo</span>
+                                </div>
+                                <ul class="check-list text-sm">
+                                    <li><i class="fa-solid fa-check"></i> Unlimited History</li>
+                                    <li><i class="fa-solid fa-check"></i> PDF Reports</li>
+                                    <li><i class="fa-solid fa-check"></i> Priority Support</li>
+                                </ul>
+                                <button class="btn btn-secondary mt-4 w-full">Manage Subscription</button>
+                            </div>
+                            <div class="settings-card" style="flex:1; min-width: 300px;">
+                                <h3 class="font-bold mb-4">Payment Method</h3>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div style="background:#1e293b; color:white; padding: 10px; border-radius: 4px;">
+                                        <i class="fa-brands fa-cc-visa fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Visa ending in 4242</div>
+                                        <div class="text-xs text-muted">Expires 12/28</div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-secondary w-full">Update Card</button>
+                            </div>
+                        </div>
+                        <div class="data-table-container mt-6">
+                            <div class="table-header">
+                                <h3 class="font-bold">Invoices</h3>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Oct 01, 2025</td>
+                                        <td>$69.00</td>
+                                        <td><span class="badge badge-success">Paid</span></td>
+                                        <td><a href="#" class="text-primary">Download</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sep 01, 2025</td>
+                                        <td>$69.00</td>
+                                        <td><span class="badge badge-success">Paid</span></td>
+                                        <td><a href="#" class="text-primary">Download</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="dash-profile" class="dash-tab hidden">
+                        <div class="page-header">
+                            <h2 class="page-title">Your Profile</h2>
+                        </div>
+                        <div class="settings-card">
+                            <div class="flex items-center gap-6 mb-6">
+                                <div class="avatar" style="width:80px; height:80px; font-size: 2rem;">JD</div>
+                                <button class="btn btn-secondary">Upload New Avatar</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4"
+                                style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" value="John" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" value="Doe" class="form-input">
+                                </div>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" value="john@demo-inc.com" class="form-input">
+                            </div>
+                            <hr style="border-color: var(--border); margin: 24px 0;">
+                            <div class="form-group">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" value="blablabla" class="form-input">
+                            </div>
+                            <div class="flex justify-end mt-6">
+                                <button class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dash-settings" class="dash-tab hidden">
+                        <div class="page-header">
+                            <h2 class="page-title">Integrations</h2>
+                        </div>
+                        <div class="settings-card">
+                            <div class="flex items-center justify-between" style="margin-bottom: 20px;">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-brands fa-github fa-2x"></i>
+                                    <div>
+                                        <h3 class="font-bold">GitHub Connection</h3>
+                                        <p class="text-muted text-sm">Used for repository scanning.</p>
+                                    </div>
+                                </div>
+                                <span class="badge badge-success">Connected</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Personal Access Token (Encrypted)</label>
+                                <div class="input-group">
+                                    <input type="password" value="ghp_XXXXXXXXXXXXXXXXXXXXXXXX" disabled
+                                        class="form-input">
+                                    <button class="btn btn-secondary">Rotate</button>
+                                </div>
+                            </div>
+                            <hr style="border-color: var(--border); margin: 24px 0;">
+                            <div class="flex items-center justify-between" style="margin-bottom: 20px;">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-brands fa-aws fa-2x"></i>
+                                    <div>
+                                        <h3 class="font-bold">AWS Cloud</h3>
+                                        <p class="text-muted text-sm">Infrastructure scanning.</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-secondary">Connect</button>
+                            </div>
+                        </div>
+                    </div>
         </main>
     </div>
     <div id="toast" class="toast">
@@ -2023,11 +2499,21 @@
             },
             switchTab: function (tabId, element) {
                 // Handle Sidebar active state
-                document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-                element.classList.add('active');
+                if (element) {
+                    document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+                    element.classList.add('active');
+                }
                 // Handle Tab visibility
                 document.querySelectorAll('.dash-tab').forEach(el => el.classList.add('hidden'));
                 document.getElementById(tabId).classList.remove('hidden');
+            },
+            loadAudit: function (auditId) {
+                // 1. Switch to detail view
+                this.switchTab('dash-audit-detail');
+                // 2. Update content (Mock)
+                document.getElementById('audit-detail-title').innerText = `Audit #${auditId}`;
+                // 3. Keep sidebar state on "Audits" or "Dashboard" (optional, but good UX)
+                // We won't force active state change here to keep it simple, or we could highlight 'Audits'
             }
         };
         // --- APPLICATION LOGIC ---
@@ -2052,16 +2538,20 @@
                 }
             },
             renderTables: function () {
-                // Render Failed Checks
+                // Render Recent Audits (Mocking the "Recent Audits" from Dashboard.tsx)
                 const failedBody = document.getElementById('failed-checks-body');
                 if (failedBody) {
-                    failedBody.innerHTML = mockData.failedChecks.map(check => `
-<tr>
-<td><span class="badge badge-${check.severity === 'CRITICAL' ? 'danger' : 'warning'}">${check.severity}</span></td>
-<td class="font-bold">${check.name}</td>
-<td class="text-muted text-sm">${check.resource}</td>
-<td class="text-muted text-sm">${check.time}</td>
-<td><button class="btn btn-secondary text-xs" style="padding:4px 8px;">Fix</button></td>
+                    const recentAudits = [
+                        { id: 'AUD-8f3e2a1', date: 'Oct 24, 10:30 AM', rate: 92.5, status: 'COMPLETED' },
+                        { id: 'AUD-7b1e4c9', date: 'Oct 23, 09:15 AM', rate: 88.0, status: 'COMPLETED' },
+                        { id: 'AUD-9d2f1b4', date: 'Oct 22, 02:00 PM', rate: 45.0, status: 'FAILED' },
+                    ];
+                    failedBody.innerHTML = recentAudits.map(audit => `
+<tr style="cursor:pointer" onclick="router.loadAudit('${audit.id}')">
+<td class="font-bold hover:text-primary transition-colors">${audit.id}</td>
+<td class="text-muted text-sm">${audit.date}</td>
+<td class="text-sm font-bold">${audit.rate.toFixed(1)}%</td>
+<td><span class="badge badge-${audit.status === 'COMPLETED' ? 'success' : 'danger'}">${audit.status}</span></td>
 </tr>
 `).join('');
                 }
@@ -2069,9 +2559,9 @@
                 const auditBody = document.getElementById('audit-log-body');
                 if (auditBody) {
                     auditBody.innerHTML = mockData.audits.map(audit => `
-<tr>
+<tr style="cursor:pointer" onclick="router.loadAudit('${audit.id}')">
 <td><span class="badge badge-${audit.status === 'PASS' ? 'success' : 'danger'}">${audit.status}</span></td>
-<td class="font-bold text-sm">${audit.id}</td>
+<td class="font-bold text-sm hover:text-primary transition-colors">${audit.id}</td>
 <td><div class="flex items-center gap-2"><div class="avatar" style="width:24px;height:24px;font-size:10px;">${audit.user[0]}</div> ${audit.user}</div></td>
 <td class="text-muted text-sm">${audit.duration}</td>
 <td class="text-muted text-sm">${audit.date}</td>
@@ -2098,38 +2588,35 @@
                 setTimeout(() => toast.classList.remove('show'), 3000);
             }
         };
-        // --- TYPEWRITER EFFECT (Landing) ---
-        const terminalText = [
-            { t: "> audit-ease run --env=production", c: "text-main" },
-            { t: "✓ Connecting to AWS (us-east-1)... Connected", c: "text-success" },
-            { t: "✓ Analyzing Security Groups... Done", c: "text-success" },
-            { t: "⚠ Finding: Port 22 Open on 10.0.0.5", c: "text-warning" },
-            { t: "✓ Snapshotting Evidence... Saved", c: "text-success" },
-            { t: "Generating PDF Report...", c: "text-muted" },
-            { t: "> Done. Score: 92%", c: "text-primary font-bold" }
-        ];
-        function runTypewriter() {
-            const container = document.getElementById('landing-terminal');
+        // --- HERO CHART ANIMATION ---
+        function initHeroChart() {
+            const container = document.getElementById('demo-hero-chart');
             if (!container) return;
+
+            // Clear static content
             container.innerHTML = '';
-            let lineIndex = 0;
-            function nextLine() {
-                if (lineIndex >= terminalText.length) {
-                    setTimeout(runTypewriter, 5000);
-                    return;
-                }
-                const line = document.createElement('div');
-                line.className = `cmd-line ${terminalText[lineIndex].c}`;
-                line.innerText = terminalText[lineIndex].t;
-                container.appendChild(line);
-                lineIndex++;
-                setTimeout(nextLine, 600);
+
+            // Generate 20 bars
+            for (let i = 0; i < 20; i++) {
+                const height = 30 + Math.random() * 70; // 30-100%
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                // Add a specific class for the demo hero bars if needed for specific styling, 
+                // but .chart-bar from global styles should work if available. 
+                // We'll trust the global .chart-bar style or add it if missing (it serves the main app view too).
+
+                bar.style.height = '0%';
+                // Animate
+                setTimeout(() => {
+                    bar.style.height = `${height}%`;
+                }, i * 50);
+                container.appendChild(bar);
             }
-            nextLine();
         }
+
         // Init
         window.addEventListener('load', () => {
-            runTypewriter();
+            initHeroChart();
         });
 
         // --- NEW LOGIC: PRICING & CONTACT ---
