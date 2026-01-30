@@ -1022,6 +1022,106 @@
                 gap: 30px;
             }
         }
+
+        /* --- NEW SECTIONS CSS --- */
+        /* Steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(59, 130, 246, 0.2);
+            margin-bottom: 10px;
+        }
+
+        /* ROI Strip */
+        .roi-strip {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .roi-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: rgba(255, 255, 255, 0.03);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: white;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: var(--accent);
+        }
+
+        .cross-icon {
+            color: var(--danger);
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+
+            .steps-grid,
+            .roi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -1105,6 +1205,37 @@
                 </div>
             </div>
         </div>
+        <!-- HOW IT WORKS SECTION -->
+        <section class="section-padding" style="background: rgba(255,255,255,0.02);">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 60px;">
+                    <h2 class="section-title">Zero to Audit-Ready in Minutes</h2>
+                    <p class="section-subtitle">The fastest path to a "Pass".</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h3 class="font-bold text-white mb-2">Connect</h3>
+                        <p class="text-muted text-sm">Link your Cloud & Git accounts. Read-only permissions only.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h3 class="font-bold text-white mb-2">Scan</h3>
+                        <p class="text-muted text-sm">Our engine checks 150+ controls (SOC2, HIPAA, ISO) instantly.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h3 class="font-bold text-white mb-2">Fix / Waive</h3>
+                        <p class="text-muted text-sm">Fix issues or "Accept Risk" with a valid business reason.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h3 class="font-bold text-white mb-2">Export</h3>
+                        <p class="text-muted text-sm">Generate the PDF proof and send it to your auditor.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="section-padding" id="why">
             <div class="container">
                 <div class="text-center" style="margin-bottom: 60px;">
@@ -1210,6 +1341,70 @@
                             <p class="text-muted text-xs">Approved by: J. Doe on Oct 12</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI STRIP -->
+        <div class="roi-strip">
+            <div class="container">
+                <div class="roi-grid">
+                    <div>
+                        <div class="roi-number">200+</div>
+                        <div class="text-muted font-bold">Hours Saved Per Audit</div>
+                    </div>
+                    <div>
+                        <div class="roi-number">$15k</div>
+                        <div class="text-muted font-bold">Consultant Fees Avoided</div>
+                    </div>
+                    <div>
+                        <div class="roi-number">3 Days</div>
+                        <div class="text-muted font-bold">Average Setup Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARISON SECTION -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 60px;">
+                    <h2 class="section-title">Why We Are Different</h2>
+                    <p class="section-subtitle">Stop using spreadsheets and screenshots.</p>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Feature</th>
+                                <th style="width: 30%;">Manual Methods</th>
+                                <th style="width: 30%; color: var(--primary);">AuditMate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Evidence Collection</td>
+                                <td><i class="fa-solid fa-xmark cross-icon"></i> Manual Screenshots</td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Automated API Snapshots</td>
+                            </tr>
+                            <tr>
+                                <td>Risk Customization</td>
+                                <td><i class="fa-solid fa-xmark cross-icon"></i> Ignore until caught</td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Formal Acceptance Logic</td>
+                            </tr>
+                            <tr>
+                                <td>Cost</td>
+                                <td><i class="fa-solid fa-xmark cross-icon"></i> Your Engineering Time ($$$)</td>
+                                <td><i class="fa-solid fa-check check-icon"></i> $69/month</td>
+                            </tr>
+                            <tr>
+                                <td>Auditor Trust</td>
+                                <td><i class="fa-solid fa-minus" style="color:var(--text-muted)"></i> "Did you edit
+                                    this?"</td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Checksummed & Immutable</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
