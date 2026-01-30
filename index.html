@@ -500,14 +500,21 @@
         .faq-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            gap: 24px;
         }
 
         .faq-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 30px;
+            padding: 32px;
             border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .faq-card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateY(-2px);
         }
 
         .faq-question {
@@ -515,11 +522,23 @@
             font-size: 1.1rem;
             margin-bottom: 12px;
             color: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            margin-top: 4px;
+            font-size: 0.9rem;
         }
 
         .faq-answer {
             color: var(--text-muted);
             font-size: 0.95rem;
+            line-height: 1.6;
+            margin-left: 28px;
+            /* Align with text start */
         }
 
         /* Pricing */
@@ -1464,31 +1483,128 @@
                     <h2 class="section-title">Let’s Address the Obvious</h2>
                     <p class="section-subtitle">Real questions. Honest answers. No sales fluff.</p>
                 </div>
-                <div class="faq-grid" style="margin-bottom: 80px;">
+                <div class="faq-grid" style="margin-bottom: 40px;">
+                    <!-- Group 1: The Basics -->
                     <div class="faq-card">
-                        <div class="faq-question">"Isn’t this what other compliance tools already do?"</div>
-                        <div class="faq-answer">Short answer: They can. Real answer: They’re built to run compliance
-                            programs. We’re built to produce audit-ready proof. If you want continuous monitoring
-                            year-round, use them. If you want clean answers when someone asks hard questions, use us.
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "How is this different from bigger platforms?"
                         </div>
+                        <div class="faq-answer">They optimize for <strong>continuous, year‑round monitoring</strong>,
+                            which usually means endpoint agents, nonstop alerts, and pretending you hired a full‑time
+                            CISO. We optimize for <strong>speed and snapshotting</strong>. Use them if you want a
+                            <em>CISO‑in‑a‑box</em>. Use AuditMate if you just need clean, defensible evidence to pass an
+                            audit.</div>
                     </div>
                     <div class="faq-card">
-                        <div class="faq-question">"Why wouldn’t I just use a bigger platform?"</div>
-                        <div class="faq-answer">Bigger platforms assume you're ready to commit long-term and configure
-                            dozens of controls. AuditMate assumes you need results now for *this* audit or board
-                            meeting, and you don't want another system to babysit.</div>
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Do I need to install an agent?"
+                        </div>
+                        <div class="faq-answer"><strong>Absolutely not.</strong> We hate endpoint agents. They’re
+                            invasive, brittle, and everyone secretly disables them anyway. AuditMate connects via
+                            <strong>read‑only APIs</strong> to check configuration and access controls, not your
+                            employees’ browser history.</div>
                     </div>
                     <div class="faq-card">
-                        <div class="faq-question">"What if our infrastructure isn’t perfect?"</div>
-                        <div class="faq-answer">Then you’re normal. AuditMate lets you document known risks, provide
-                            business justification, and accept them formally. Auditors don’t expect perfection; they
-                            expect awareness and documentation.</div>
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "What if our infrastructure is messy?"
+                        </div>
+                        <div class="faq-answer">Then congratulations — you’re a normal startup. Auditors don't expect
+                            perfection; they expect <strong>documentation</strong>. Our "Risk Acceptance" workflow lets
+                            you formally document known gaps <em>with business justification</em>. Messy infrastructure
+                            doesn’t fail audits. <strong>Undocumented messes do.</strong></div>
                     </div>
                     <div class="faq-card">
-                        <div class="faq-question">"What happens if we outgrow this?"</div>
-                        <div class="faq-answer">Then we did our job. We get you audit-ready and give you defensible
-                            proof. If you later adopt a larger OS, your historical evidence stands. No lock-in. No
-                            hostage situation.</div>
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Is my data secure?"
+                        </div>
+                        <div class="faq-answer">Yes. All stored credentials are encrypted using <strong>AES‑256
+                                (Fernet)</strong>. We <strong>never clone your repositories</strong> — we only read
+                            metadata. Evidence snapshots are <strong>SHA‑256 hashed</strong>, so you can prove nothing
+                            was altered after collection.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Can I export the data?"
+                        </div>
+                        <div class="faq-answer">Yes. We’re not keeping it hostage. Export everything in PDF
+                            (executives), CSV (auditors), or Raw JSON (developers). If you leave AuditMate, you leave
+                            with <strong>all your proof</strong>. No lock‑in. No ransomware‑but‑make‑it‑SaaS.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Can I invite my auditor?"
+                        </div>
+                        <div class="faq-answer">You can do better. Use <strong>Secure Courier</strong> to generate a
+                            <strong>time‑limited, read‑only link</strong>. Auditors see <em>exactly</em> what they need
+                            to verify compliance — nothing more, nothing less. No shared logins. No awkward Zoom
+                            screen‑sharing.</div>
+                    </div>
+                </div>
+
+                <h3 class="text-center section-title" style="font-size: 1.8rem; margin-bottom: 40px;">More Questions
+                    You’re Probably Thinking</h3>
+
+                <div class="faq-grid" style="margin-bottom: 80px;">
+                    <!-- Group 2: The Specifics -->
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "What frameworks do you support?"
+                        </div>
+                        <div class="faq-answer">SOC 2, ISO 27001, and other common frameworks startups are forced to
+                            care about. We map evidence once and reuse it across controls so you’re not answering the
+                            same question 14 different ways.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "How long does it take to get audit‑ready?"
+                        </div>
+                        <div class="faq-answer">For most teams: <strong>days, not months</strong>. You connect your
+                            systems, generate snapshots, document known risks, and export evidence. No prolonged
+                            compliance cosplay.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Will this replace our auditor?"
+                        </div>
+                        <div class="faq-answer">No. Auditors are still very real people who send invoices. AuditMate
+                            replaces endless spreadsheets, screenshot archaeology, and the ritual panic before evidence
+                            deadlines. Your auditor will still audit. They’ll just do it faster.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "What happens after the audit?"
+                        </div>
+                        <div class="faq-answer">Nothing magical. Your company continues existing. You can keep AuditMate
+                            around for future audits, update snapshots when needed, or export everything and come back
+                            later. We don’t require eternal devotion.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Is this overkill for an early‑stage startup?"
+                        </div>
+                        <div class="faq-answer">If you don’t need an audit, yes. Close the tab. If a customer, partner,
+                            or regulator is asking for compliance proof <em>right now</em>, then no — it’s exactly the
+                            right amount of kill.</div>
+                    </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fa-solid fa-circle-question"></i>
+                            "Who is this *not* for?"
+                        </div>
+                        <div class="faq-answer">Companies that want constant employee monitoring, teams seeking
+                            real‑time security alerting, or enterprises with a full GRC department. AuditMate is for
+                            teams who want to <strong>pass audits cleanly and move on with their lives</strong>.</div>
                     </div>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
