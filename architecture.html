@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture | AuditMate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --bg-blueprint: #0f172a;
+            --primary: #3b82f6;
+            --warning: #f59e0b;
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(59, 130, 246, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+        header { border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 60px; }
+        
+        h1 { font-size: 2.5rem; font-weight: 800; margin: 0 0 10px 0; }
+        .tech-stack-pills { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .pill { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--primary); color: var(--primary); padding: 4px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+
+        .arch-section { margin-bottom: 80px; }
+        h2 { font-size: 1.5rem; color: var(--warning); margin-bottom: 30px; border-left: 4px solid var(--warning); padding-left: 15px; }
+
+        .diagram-container {
+            background: var(--bg-blueprint);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+            white-space: pre;
+            color: #93c5fd;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+            line-height: 1.2;
+            font-size: 0.85rem;
+        }
+
+        .flow-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .matrix-table th { background: rgba(59, 130, 246, 0.1); color: var(--primary); }
+
+        .highlight { color: var(--accent); font-weight: bold; }
+        .danger { color: #ef4444; }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: 0.2s;
+        }
+        .back-btn:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Return to Terminal</a>
+        
+        <header>
+            <h1>System Architecture</h1>
+            <p class="text-muted">High-level technical overview of the AuditMate B2B SaaS Engine.</p>
+            <div class="tech-stack-pills">
+                <span class="pill">Django 5.0</span>
+                <span class="pill">PostgreSQL</span>
+                <span class="pill">Redis</span>
+                <span class="pill">Celery</span>
+                <span class="pill">Stripe API</span>
+                <span class="pill">Fernet Encryption</span>
+            </div>
+        </header>
+
+        <section class="arch-section">
+            <h2>01. Logical System Components</h2>
+            <div class="diagram-container">
+┌─────────────────────────────────────────────────────────────────────┐
+│                        Frontend (React/TypeScript)                  │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐   │
+│  │  Client Portal   │  │  Billing Module  │  │  Evidence Export │   │
+└────────────┬─────────────────────┬──────────────────────┬───────────┘
+             ▼                     ▼                      ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                    Django REST Framework (Backend)                   │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │ Permission Layer: IsAuthenticated + IsSameOrg + HasActiveSub   │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│             │                     │                      │           │
+│      ┌──────▼──────┐       ┌──────▼──────┐        ┌──────▼──────┐    │
+│      │ Org Engine  │       │ Audit Engine│        │ Stripe Sync │    │
+│      └─────────────┘       └─────────────┘        └─────────────┘    │
+└────────────────────────────────────┬─────────────────────────────────┘
+                                     ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                      Data & Task Persistence                         │
+│   ┌────────────────────────┐            ┌────────────────────────┐   │
+│   │  PostgreSQL (ACID)     │            │   Redis (Queue)        │   │
+│   └────────────────────────┘            └────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────────┘
+            </div>
+        </section>
+
+        <section class="arch-section">
+            <h2>02. Security Flow: Premium Feature Access</h2>
+            <p class="text-muted">How we handle feature gating for CSV/PDF exports at the middleware level.</p>
+            
+            <div class="flow-card">
+                <p><span class="highlight">[REQUEST]</span> GET /api/v1/audits/export/csv/</p>
+                <p><span class="highlight">[AUTH]</span> Validate JWT → Identify User & Organization</p>
+                <p><span class="highlight">[PERM]</span> <strong>HasActiveSubscription</strong> check:</p>
+                <div style="padding-left: 20px; font-family: 'JetBrains Mono'; font-size: 0.85rem;">
+                    if org.subscription_status == 'active': <span class="highlight">ALLOW (200 OK)</span><br>
+                    else: <span class="danger">BLOCK (403 Forbidden - "Upgrade to Premium")</span>
+                </div>
+            </div>
+
+            
+        </section>
+
+        <section class="arch-section">
+            <h2>03. Stripe Webhook Lifecycle</h2>
+            <p class="text-muted">Asynchronous synchronization between Stripe billing and our local Database.</p>
+            <div class="diagram-container" style="color: #a5b4fc;">
+Stripe Checkout ──▶ Webhook (checkout.session.completed)
+                      │
+                      ▼
+               Django Webhook Handler
+                      │
+              ┌───────┴───────┐
+              │               │
+      Verify Signature   Lookup Org by ID
+              │               │
+              └───────┬───────┘
+                      ▼
+        Update local Org: sub_status = 'active'
+            </div>
+        </section>
+
+        <section class="arch-section">
+            <h2>04. Permission Matrix</h2>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Resource Endpoint</th>
+                        <th>Free User</th>
+                        <th>Pro User</th>
+                        <th>Admin Only</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Run Security Scan</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>PDF/CSV Export</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Manage Team</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Risk Acceptance</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem;">
+            Security Note: All API credentials are encrypted at rest using AES-128 via Fernet. Decryption occurs only in ephemeral memory during audit execution.
+        </footer>
+    </div>
+</body>
+</html>
