@@ -1049,6 +1049,12 @@
             opacity: 1;
         }
 
+        @media (max-width: 1200px) {
+            .hide-on-tablet {
+                display: none !important;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -1377,7 +1383,8 @@
     <div id="view-landing">
         <nav>
             <div class="container flex justify-between items-center">
-                <a class="flex items-center gap-2 font-bold text-lg" href="#" onclick="router.navigate('landing')">
+                <a class="flex items-center gap-2 font-bold text-lg" href="#" onclick="router.navigate('landing')"
+                    style="flex-shrink: 0; margin-right: 24px;">
                     <i class="fa-solid fa-shield-halved text-primary"></i> AuditMate
                 </a>
                 <div class="nav-links flex gap-4 text-sm text-muted">
@@ -1386,12 +1393,13 @@
                     <a href="#faq">FAQ</a>
                     <a href="#pricing">Pricing</a>
                     <a href="features.html" style="color: var(--primary); font-weight: 600;">Full Feature List</a>
-                    <a href="architecture.html" style="color: var(--warning); font-weight: 600;"><i
-                            class="fa-solid fa-layer-group"></i> System Architecture</a>
-                    <a href="workflow.html" style="color: var(--accent); font-weight: 600;"><i
+                    <a href="architecture.html" class="hide-on-tablet"
+                        style="color: var(--warning); font-weight: 600;"><i class="fa-solid fa-layer-group"></i> System
+                        Architecture</a>
+                    <a href="workflow.html" class="hide-on-tablet" style="color: var(--accent); font-weight: 600;"><i
                             class="fa-solid fa-diagram-project"></i> System Workflow</a>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2" style="flex-shrink: 0;">
                     <button class="btn btn-secondary" onclick="router.navigate('auth')">Log In</button>
                     <button class="btn btn-primary" onclick="router.navigate('auth')">Get Demo</button>
                 </div>
@@ -2652,11 +2660,20 @@
                 btn.disabled = true;
 
                 const formData = new FormData(this);
-                // NOTE: Replace this URL with your deployed Google Apps Script Web App URL
-                // Format: https://script.google.com/macros/s/DEPLOYMENT_ID/exec
-                const scriptURL = 'https://docs.google.com/spreadsheets/d/1dKMrhGlf43iEsx0WljCdOXzUn1QeRc7PLKi5rdcVdQg/edit?gid=0#gid=0';
+                // Convert to URLSearchParams for robust e.parameter handling in GAS
+                const params = new URLSearchParams();
+                for (const pair of formData.entries()) {
+                    params.append(pair[0], pair[1]);
+                }
 
-                fetch(scriptURL, { method: 'POST', body: formData })
+                // Google Apps Script Web App URL
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbweRnNPBbUNt8-XwY5sgXK_YoyT0oUMnYgCIpGjtdTRbZTxnqb_QxPpH6ayXub-HUBA_w/exec';
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: params,
+                    // mode: 'no-cors' // Use this if you encounter strict CORS issues, but you won't get a JSON response back.
+                })
                     .then(response => {
                         // Success handling
                         finishSubmission();
